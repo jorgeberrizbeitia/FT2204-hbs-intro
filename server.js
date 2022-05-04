@@ -7,6 +7,9 @@ app.set("views", __dirname + "/views/") // express automaticamente busca las vis
 
 const lessons2 = require("./lessonsData.js") // importa el module que fue exportado de ese archivo
 
+const DogApi = require('doggo-api-wrapper');
+const myDog = new DogApi();
+
 app.get('/', (req, res) => {
   // res.send(`bienvenido, tu clave secreta es: ${process.env.SECRET_KEY}`)
 
@@ -63,17 +66,42 @@ app.get("/lessons/:bootcamp", (req, res) => {
 
 app.get("/search", (req, res) => {
 
-  // req.query
-  console.log(req.query)
+  // si el usuario no ha enviado nada en el req.query (no ha llenado el campo)
+  if (req.query.search === undefined) {
+    res.render("search.hbs", {
+      searchLesson: " "
+    })
+  } else {
+    // req.query
+    console.log(req.query)
 
-  const { search } = req.query;
+    const { search } = req.query;
 
-  let newArr = lessons2.filter((eachLesson) => {
-    return search === eachLesson.topic
+    let newObj = lessons2.find((eachLesson) => {
+      return search.toUpperCase() === eachLesson.topic.toUpperCase()
+    })
+
+    res.render("search.hbs", {
+      searchLesson: newObj
+    })
+  }
+})
+
+app.get("/dog", (req, res) => {
+
+  
+
+  myDog.getARandomDog()
+  .then(data => {
+
+    console.log(data)
+    res.render("dog.hbs", {
+      dogPicture: data.message
+    })
+
   })
-
-  res.render("search.hbs", {
-    searchLesson: newArr
+  .catch(err => {
+    console.error(err)
   })
 
 })

@@ -6,9 +6,18 @@
 </form>
 
 
-{{#each searchLesson}}
+{{!-- {{#each searchLesson}}
 
   {{this.topic}}
   {{this.description}}
 
-{{/each}}
+{{/each}} --}}
+
+{{#if searchLesson}}
+  {{searchLesson.topic}}
+  {{searchLesson.description}}
+{{else}}
+  <p>La leccion no existe</p>
+{{/if}}
+
+
