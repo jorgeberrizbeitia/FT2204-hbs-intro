@@ -1,0 +1,18 @@
+<div>
+  <h2>Estas son las lecciones que enseñamos</h2>
+  
+  {{!-- {{lessons3}} --}}
+
+  {{!-- {{lessons3.0.topic}} --}}
+
+  {{#each lessons3}}
+
+    <div>
+      <p>About: {{this.topic}}</p>
+      <p>Descripcion: {{this.description}}</p>
+      <p>bootcamp: {{this.bootcamp}} </p>
+    </div>
+    
+  {{/each}}
+
+</div>
