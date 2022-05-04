@@ -89,8 +89,6 @@ app.get("/search", (req, res) => {
 
 app.get("/dog", (req, res) => {
 
-  
-
   myDog.getARandomDog()
   .then(data => {
 
@@ -98,11 +96,37 @@ app.get("/dog", (req, res) => {
     res.render("dog.hbs", {
       dogPicture: data.message
     })
-
   })
   .catch(err => {
     console.error(err)
   })
+})
+
+app.get("/breeds", (req, res) => {
+
+  myDog.getListOfAllBreeds()
+  .then(data => {
+    // ok, cuando tenga la data hago esto
+    let arrayOfBreeds = Object.keys(data.message)
+    console.log(arrayOfBreeds)
+    res.render("breeds.hbs", {
+      breedsArr: arrayOfBreeds
+    })
+  })
+  .catch(err => console.error(err))
+})
+
+app.get("/dogs-by-breed/:breed", (req, res) => {
+
+  const { breed } = req.params
+
+  myDog.getAllDogsByBreed(breed)
+  .then(data => {
+    res.render("dogs-by-breed.hbs", {
+      dogsArr: data.message
+    })
+  })
+  .catch(err => console.error(err))
 
 })
 
