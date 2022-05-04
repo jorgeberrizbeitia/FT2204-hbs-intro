@@ -10,6 +10,9 @@ const lessons2 = require("./lessonsData.js") // importa el module que fue export
 const DogApi = require('doggo-api-wrapper');
 const myDog = new DogApi();
 
+const hbs = require("hbs")
+hbs.registerPartials(__dirname + "/views/partials")
+
 app.get('/', (req, res) => {
   // res.send(`bienvenido, tu clave secreta es: ${process.env.SECRET_KEY}`)
 
